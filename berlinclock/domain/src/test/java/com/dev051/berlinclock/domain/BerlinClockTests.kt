@@ -12,10 +12,29 @@ class BerlinClockTests {
     private val getBerlinClock = GetBerlinClockUseCase()
 
     @Test
-    fun `at the start of the day, only the second lamp is lit as 0 seconds is an even second`() {
+    fun `at the start of the day, only the seconds light is lit (as 0 seconds is an even second)`() {
         val time = LocalTime.MIDNIGHT
         val state = getBerlinClock(time)
 
-        assertEquals(state, BerlinClockState(isSecondEven = true))
+        assertEquals(
+            BerlinClockState(
+                isSecondEven = true,
+            ),
+            state,
+        )
+    }
+
+    @Test
+    fun `at 1AM, only the first hour and seconds light is lit`() {
+        val time = LocalTime.of(1, 0, 0)
+        val state = getBerlinClock(time)
+
+        assertEquals(
+            BerlinClockState(
+                hours = "YOOO",
+                isSecondEven = true,
+            ),
+            state,
+        )
     }
 }
