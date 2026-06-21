@@ -32,7 +32,7 @@ class BerlinClockTests {
     }
 
     @Test
-    fun `at 1AM, only the first hour and seconds light is lit`() {
+    fun `at 1AM, only the first hour is lit RED and seconds light is lit`() {
         val time = LocalTime.of(1, 0, 0)
         val state = getBerlinClock(time)
 
@@ -45,6 +45,31 @@ class BerlinClockTests {
                     LightState.OFF,
                 ),
                 isSecondEven = true,
+            ),
+            state,
+        )
+    }
+
+    @Test
+    fun `at 5AM, only the first hour block is lit RED and seconds light is lit`() {
+        val time = LocalTime.of(5, 0, 0)
+        val state = getBerlinClock(time)
+
+        assertEquals(
+            BerlinClockState(
+                hourBlocks = listOf(
+                    LightState.RED,
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                ),
+                hours = listOf(
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                ),
+                isSecondEven = true
             ),
             state,
         )
