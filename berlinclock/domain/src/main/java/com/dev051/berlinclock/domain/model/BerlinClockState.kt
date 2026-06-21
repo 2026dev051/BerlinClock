@@ -1,6 +1,6 @@
 package com.dev051.berlinclock.domain.model
 
 data class BerlinClockState(
-    val hours: String,
+    val hours: List<LightState>,
     val isSecondEven: Boolean = false,
 )

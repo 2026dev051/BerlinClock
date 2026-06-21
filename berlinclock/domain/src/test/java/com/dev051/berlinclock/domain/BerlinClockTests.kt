@@ -1,6 +1,7 @@
 package com.dev051.berlinclock.domain
 
 import com.dev051.berlinclock.domain.model.BerlinClockState
+import com.dev051.berlinclock.domain.model.LightState
 import com.dev051.berlinclock.domain.usecase.GetBerlinClockUseCase
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -18,7 +19,12 @@ class BerlinClockTests {
 
         assertEquals(
             BerlinClockState(
-                hours = "OOOO",
+                hours = listOf(
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                ),
                 isSecondEven = true,
             ),
             state,
@@ -32,7 +38,12 @@ class BerlinClockTests {
 
         assertEquals(
             BerlinClockState(
-                hours = "YOOO",
+                hours = listOf(
+                    LightState.RED,
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                ),
                 isSecondEven = true,
             ),
             state,

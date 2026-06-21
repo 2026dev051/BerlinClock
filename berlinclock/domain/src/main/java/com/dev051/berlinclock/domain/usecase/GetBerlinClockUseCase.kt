@@ -1,15 +1,10 @@
 package com.dev051.berlinclock.domain.usecase
 
 import com.dev051.berlinclock.domain.model.BerlinClockState
+import com.dev051.berlinclock.domain.model.LightState
 import java.time.LocalTime
 
 class GetBerlinClockUseCase {
-
-    companion object {
-        private const val OFF_STRING = "O"
-        private const val RED_STRING = "R"
-        private const val YELLOW_STRING = "Y"
-    }
 
     operator fun invoke(time: LocalTime): BerlinClockState {
         val hours = time.hour
@@ -22,15 +17,15 @@ class GetBerlinClockUseCase {
         )
     }
 
-    private fun formatHours(modulo: Int): String {
-        val redHours: StringBuilder = StringBuilder()
-        for(index in 0 until 4) {
+    private fun formatHours(modulo: Int): List<LightState> {
+        val redHours = mutableListOf<LightState>()
+        for (index in 0 until 4) {
             if (index < modulo) {
-                redHours.append(YELLOW_STRING)
+                redHours.add(LightState.RED)
             } else {
-                redHours.append(OFF_STRING)
+                redHours.add(LightState.OFF)
             }
         }
-        return redHours.toString()
+        return redHours
     }
 }
