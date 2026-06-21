@@ -1,4 +1,5 @@
 package com.dev051.berlinclock.domain
 
-class BerlinClockState {
-}
+data class BerlinClockState(
+    val isSecondEven: Boolean = false,
+)
