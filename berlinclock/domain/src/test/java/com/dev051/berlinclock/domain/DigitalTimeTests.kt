@@ -100,4 +100,49 @@ class DigitalTimeTests {
             digitalTime
         )
     }
+
+    @Test
+    fun `when receiving ROOOROOOOOOOOOOOOOOOOOOT(rue), the digital time is 06_00 with the colon visible`() {
+        val state = BerlinClockState(
+            hourBlocks = listOf(
+                LightState.RED,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+            ),
+            hours = listOf(
+                LightState.RED,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+            ),
+            minuteBlocks = listOf(
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+            ),
+            minutes = listOf(
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+            ),
+            isSecondEven = false
+        )
+
+        val digitalTime = getDigitalTime(state)
+
+        assertEquals(
+            LocalTime.of(6, 0, 1),
+            digitalTime
+        )
+    }
 }
