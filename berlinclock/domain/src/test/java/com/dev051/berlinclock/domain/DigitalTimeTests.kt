@@ -12,7 +12,7 @@ class DigitalTimeTests {
     private val getDigitalTime = GetDigitalTimeUseCase()
 
     @Test
-    fun `when receiving OOOOOOOOOOOOOOOOOOOOOOOF(alse), the digital time is 00_00 with the colon hidden`() {
+    fun `when receiving OOOO OOOO OOOOOOOOOOO OOOO F(alse), the digital time is 00_00 with the colon hidden`() {
         val state = BerlinClockState(
             hourBlocks = listOf(
                 LightState.OFF,
@@ -57,7 +57,7 @@ class DigitalTimeTests {
     }
 
     @Test
-    fun `when receiving OOOOROOOOOOOOOOOOOOOOOOT(rue), the digital time is 01_00 with the colon visible`() {
+    fun `when receiving OOOO ROOO OOOOOOOOOOO OOOO T(rue), the digital time is 01_00 with the colon visible`() {
         val state = BerlinClockState(
             hourBlocks = listOf(
                 LightState.OFF,
@@ -102,7 +102,7 @@ class DigitalTimeTests {
     }
 
     @Test
-    fun `when receiving ROOOROOOOOOOOOOOOOOOOOOT, the digital time is 06_00 with the colon visible`() {
+    fun `when receiving ROOO ROOO OOOOOOOOOOO OOOO T, the digital time is 06_00 with the colon visible`() {
         val state = BerlinClockState(
             hourBlocks = listOf(
                 LightState.RED,
@@ -147,7 +147,7 @@ class DigitalTimeTests {
     }
 
     @Test
-    fun `when receiving ROOOROOOROOOOOOOOOOROOOF, the digital time is 06_06 with the colon hidden`() {
+    fun `when receiving ROOO ROOO ROOOOOOOOOO ROOO F, the digital time is 06_06 with the colon hidden`() {
         val state = BerlinClockState(
             hourBlocks = listOf(
                 LightState.RED,
@@ -187,6 +187,96 @@ class DigitalTimeTests {
 
         assertEquals(
             LocalTime.of(6, 6, 1),
+            digitalTime
+        )
+    }
+
+    @Test
+    fun `when receiving RRRR RRRO YYRYYRYYRYY RRRR T, the digital time is 23_59 with the colon visible`() {
+        val state = BerlinClockState(
+            hourBlocks = listOf(
+                LightState.RED,
+                LightState.RED,
+                LightState.RED,
+                LightState.RED,
+            ),
+            hours = listOf(
+                LightState.RED,
+                LightState.RED,
+                LightState.RED,
+                LightState.OFF,
+            ),
+            minuteBlocks = listOf(
+                LightState.YELLOW,
+                LightState.YELLOW,
+                LightState.RED,
+                LightState.YELLOW,
+                LightState.YELLOW,
+                LightState.RED,
+                LightState.YELLOW,
+                LightState.YELLOW,
+                LightState.RED,
+                LightState.YELLOW,
+                LightState.YELLOW,
+            ),
+            minutes = listOf(
+                LightState.RED,
+                LightState.RED,
+                LightState.RED,
+                LightState.RED,
+            ),
+            isSecondEven = true
+        )
+
+        val digitalTime = getDigitalTime(state)
+
+        assertEquals(
+            LocalTime.of(23, 59, 0),
+            digitalTime
+        )
+    }
+
+    @Test
+    fun `when receiving RROO ROOO YYRYYROOOOO RROO T, the digital time is 11_32 with the colon visible`() {
+        val state = BerlinClockState(
+            hourBlocks = listOf(
+                LightState.RED,
+                LightState.RED,
+                LightState.OFF,
+                LightState.OFF,
+            ),
+            hours = listOf(
+                LightState.RED,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+            ),
+            minuteBlocks = listOf(
+                LightState.YELLOW,
+                LightState.YELLOW,
+                LightState.RED,
+                LightState.YELLOW,
+                LightState.YELLOW,
+                LightState.RED,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+            ),
+            minutes = listOf(
+                LightState.RED,
+                LightState.RED,
+                LightState.OFF,
+                LightState.OFF,
+            ),
+            isSecondEven = true
+        )
+
+        val digitalTime = getDigitalTime(state)
+
+        assertEquals(
+            LocalTime.of(11, 32, 0),
             digitalTime
         )
     }
