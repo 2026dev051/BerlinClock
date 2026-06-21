@@ -275,4 +275,91 @@ class BerlinClockTests {
             state,
         )
     }
+
+    @Test
+    fun `at 23h59 58s, everything is lit except the last hour light`() {
+        val time = LocalTime.of(23, 59, 58)
+        val state = getBerlinClock(time)
+
+        assertEquals(
+            BerlinClockState(
+                hourBlocks = listOf(
+                    LightState.RED,
+                    LightState.RED,
+                    LightState.RED,
+                    LightState.RED,
+                ),
+                hours = listOf(
+                    LightState.RED,
+                    LightState.RED,
+                    LightState.RED,
+                    LightState.OFF,
+                ),
+                minuteBlocks = listOf(
+                    LightState.YELLOW,
+                    LightState.YELLOW,
+                    LightState.RED,
+                    LightState.YELLOW,
+                    LightState.YELLOW,
+                    LightState.RED,
+                    LightState.YELLOW,
+                    LightState.YELLOW,
+                    LightState.RED,
+                    LightState.YELLOW,
+                    LightState.YELLOW,
+                ),
+                minutes = listOf(
+                    LightState.RED,
+                    LightState.RED,
+                    LightState.RED,
+                    LightState.RED,
+                ),
+                isSecondEven = true
+            ),
+            state,
+        )
+    }
+    @Test
+    fun `at 00h00 01s, everything is off`() {
+        val time = LocalTime.of(0, 0, 1)
+        val state = getBerlinClock(time)
+
+        assertEquals(
+            BerlinClockState(
+                hourBlocks = listOf(
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                ),
+                hours = listOf(
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                ),
+                minuteBlocks = listOf(
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                ),
+                minutes = listOf(
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                ),
+                isSecondEven = false
+            ),
+            state,
+        )
+    }
 }
