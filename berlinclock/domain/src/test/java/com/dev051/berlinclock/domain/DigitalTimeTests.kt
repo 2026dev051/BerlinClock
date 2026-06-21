@@ -12,7 +12,7 @@ class DigitalTimeTests {
     private val getDigitalTime = GetDigitalTimeUseCase()
 
     @Test
-    fun `when receiving OOOOOOOOOOOOOOOOOOOOOOOF(alse), the digital time is 00 00 with the colon hidden`() {
+    fun `when receiving OOOOOOOOOOOOOOOOOOOOOOOF(alse), the digital time is 00_00 with the colon hidden`() {
         val state = BerlinClockState(
             hourBlocks = listOf(
                 LightState.OFF,
@@ -102,7 +102,7 @@ class DigitalTimeTests {
     }
 
     @Test
-    fun `when receiving ROOOROOOOOOOOOOOOOOOOOOT(rue), the digital time is 06_00 with the colon visible`() {
+    fun `when receiving ROOOROOOOOOOOOOOOOOOOOOT, the digital time is 06_00 with the colon visible`() {
         val state = BerlinClockState(
             hourBlocks = listOf(
                 LightState.RED,
@@ -135,13 +135,58 @@ class DigitalTimeTests {
                 LightState.OFF,
                 LightState.OFF,
             ),
+            isSecondEven = true
+        )
+
+        val digitalTime = getDigitalTime(state)
+
+        assertEquals(
+            LocalTime.of(6, 0, 0),
+            digitalTime
+        )
+    }
+
+    @Test
+    fun `when receiving ROOOROOOROOOOOOOOOOROOOF, the digital time is 06_06 with the colon hidden`() {
+        val state = BerlinClockState(
+            hourBlocks = listOf(
+                LightState.RED,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+            ),
+            hours = listOf(
+                LightState.RED,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+            ),
+            minuteBlocks = listOf(
+                LightState.YELLOW,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+            ),
+            minutes = listOf(
+                LightState.RED,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF,
+            ),
             isSecondEven = false
         )
 
         val digitalTime = getDigitalTime(state)
 
         assertEquals(
-            LocalTime.of(6, 0, 1),
+            LocalTime.of(6, 6, 1),
             digitalTime
         )
     }
