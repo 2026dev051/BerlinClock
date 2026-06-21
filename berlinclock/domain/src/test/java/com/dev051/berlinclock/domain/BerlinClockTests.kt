@@ -18,6 +18,7 @@ class BerlinClockTests {
 
         assertEquals(
             BerlinClockState(
+                hours = "OOOO",
                 isSecondEven = true,
             ),
             state,
