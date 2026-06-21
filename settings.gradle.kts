@@ -24,6 +24,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Berlin Clock"
 include(":app")
-include(":berlinclock:data")
 include(":berlinclock:domain")
 include(":berlinclock:presentation")
