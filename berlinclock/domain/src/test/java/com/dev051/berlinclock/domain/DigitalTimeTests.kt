@@ -57,16 +57,16 @@ class DigitalTimeTests {
     }
 
     @Test
-    fun `when receiving ROOOOOOOOOOOOOOOOOOOOOOT(rue), the digital time is 01_00 with the colon visible`() {
+    fun `when receiving OOOOROOOOOOOOOOOOOOOOOOT(rue), the digital time is 01_00 with the colon visible`() {
         val state = BerlinClockState(
             hourBlocks = listOf(
-                LightState.RED,
+                LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
             ),
             hours = listOf(
-                LightState.OFF,
+                LightState.RED,
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
