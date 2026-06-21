@@ -10,17 +10,22 @@ class GetBerlinClockUseCase {
         val hours = time.hour
         val seconds = time.second
 
-        val stringHours = formatHours(hours % 5)
+        val hourBlocksLit = hours / 5
+        val stringHourBlocksState = formatHours(hourBlocksLit)
+
+        val hoursLit = hours % 5
+        val stringHoursState = formatHours(hoursLit)
         return BerlinClockState(
-            hours = stringHours,
+            hourBlocks = stringHourBlocksState,
+            hours = stringHoursState,
             isSecondEven = seconds % 2 == 0
         )
     }
 
-    private fun formatHours(modulo: Int): List<LightState> {
+    private fun formatHours(litAmount: Int): List<LightState> {
         val redHours = mutableListOf<LightState>()
         for (index in 0 until 4) {
-            if (index < modulo) {
+            if (index < litAmount) {
                 redHours.add(LightState.RED)
             } else {
                 redHours.add(LightState.OFF)

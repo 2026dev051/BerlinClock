@@ -19,6 +19,12 @@ class BerlinClockTests {
 
         assertEquals(
             BerlinClockState(
+                hourBlocks = listOf(
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                ),
                 hours = listOf(
                     LightState.OFF,
                     LightState.OFF,
@@ -38,6 +44,12 @@ class BerlinClockTests {
 
         assertEquals(
             BerlinClockState(
+                hourBlocks = listOf(
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                    LightState.OFF,
+                ),
                 hours = listOf(
                     LightState.RED,
                     LightState.OFF,
