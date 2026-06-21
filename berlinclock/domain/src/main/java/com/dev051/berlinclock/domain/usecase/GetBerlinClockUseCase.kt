@@ -17,12 +17,16 @@ class GetBerlinClockUseCase {
         val hoursLit = hours % 5
         val stringHoursState = formatBlockOfFour(hoursLit)
 
+        val minuteBlocksLit = minutes / 5
+        val stringMinuteBlocksState = formatBlockOfEleven(minuteBlocksLit)
+
         val minutesLit = minutes % 5
         val stringMinutesState = formatBlockOfFour(minutesLit)
 
         return BerlinClockState(
             hourBlocks = stringHourBlocksState,
             hours = stringHoursState,
+            minuteBlocks = stringMinuteBlocksState,
             minutes = stringMinutesState,
             isSecondEven = seconds % 2 == 0
         )
@@ -30,13 +34,25 @@ class GetBerlinClockUseCase {
 
     private fun formatBlockOfFour(litAmount: Int): List<LightState> {
         val blockOfFourLightState = mutableListOf<LightState>()
-        for (index in 0 until 4) {
-            if (index < litAmount) {
+        for (index in 1 .. 4) {
+            if (index <= litAmount) {
                 blockOfFourLightState.add(LightState.RED)
             } else {
                 blockOfFourLightState.add(LightState.OFF)
             }
         }
         return blockOfFourLightState
+    }
+
+    private fun formatBlockOfEleven(litAmount: Int): List<LightState> {
+        val blockOfElevenLightState = mutableListOf<LightState>()
+        for (index in 1 .. 11) {
+            when {
+                index in 2 .. litAmount && index % 3 == 0 -> blockOfElevenLightState.add(LightState.RED)
+                index <= litAmount -> blockOfElevenLightState.add(LightState.YELLOW)
+                else -> blockOfElevenLightState.add(LightState.OFF)
+            }
+        }
+        return blockOfElevenLightState
     }
 }
