@@ -33,8 +33,15 @@ android {
 }
 
 dependencies {
+    implementation(project(":berlinclock:domain"))
+
+    implementation(platform(libs.androidx.compose.bom))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.koin.android)
+    implementation(libs.koin.core)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
