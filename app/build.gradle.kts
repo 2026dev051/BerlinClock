@@ -40,6 +40,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":berlinclock:domain"))
     implementation(project(":berlinclock:presentation"))
 
     implementation(libs.androidx.core.ktx)

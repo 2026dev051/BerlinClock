@@ -19,6 +19,7 @@ class BerlinClockViewModel(
         get() = _state.asStateFlow()
 
     private var lastBerlinClockState: BerlinClockState? = null
+
     fun getBerlinClock(time: LocalTime = LocalTime.now()) {
         _state.value = State.Loading
         try {
