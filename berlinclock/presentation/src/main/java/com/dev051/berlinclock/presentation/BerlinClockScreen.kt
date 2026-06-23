@@ -6,10 +6,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -32,7 +35,7 @@ fun BerlinClock(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.padding(8.dp),
+        modifier = modifier.padding(8.dp).aspectRatio(1.25F),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
@@ -43,20 +46,21 @@ fun BerlinClock(
         val isSecondEven = remember { derivedStateOf { state.isSecondEven } }
 
         CircleLight(isSecondEven = isSecondEven)
-        HorizontalLights(hourBlocks)
-        HorizontalLights(hours)
-        HorizontalLights(minuteBlocks)
-        HorizontalLights(minutes)
+        HorizontalLights(hourBlocks, Modifier.weight(1F))
+        HorizontalLights(hours, Modifier.weight(1F))
+        HorizontalLights(minuteBlocks, Modifier.weight(1F))
+        HorizontalLights(minutes, Modifier.weight(1F))
     }
 }
 
 @Composable
 private fun CircleLight(
     isSecondEven: State<Boolean>,
+    modifier: Modifier = Modifier,
 ) {
     val background = if (isSecondEven.value) Color.Yellow else Color.White
     Box(
-        modifier = Modifier
+        modifier = modifier
             .size(64.dp)
             .clip(CircleShape)
             .background(background)
@@ -67,9 +71,10 @@ private fun CircleLight(
 @Composable
 private fun HorizontalLights(
     lightState: State<List<LightState>>,
+    modifier: Modifier,
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         lightState.value.forEachIndexed { index, light ->
