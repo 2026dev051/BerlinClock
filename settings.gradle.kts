@@ -26,3 +26,4 @@ rootProject.name = "Berlin Clock"
 include(":app")
 include(":berlinclock:domain")
 include(":berlinclock:presentation")
+include(":core")

@@ -1,4 +1,4 @@
-package com.dev051.berlinclock.ui.theme
+package com.dev051.core.design
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
