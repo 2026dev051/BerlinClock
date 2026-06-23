@@ -2,6 +2,7 @@ package com.dev051.berlinclock.presentation
 
 import androidx.lifecycle.ViewModel
 import com.dev051.berlinclock.domain.model.BerlinClockState
+import com.dev051.berlinclock.domain.model.DigitalTimeState
 import com.dev051.berlinclock.domain.usecase.GetBerlinClockUseCase
 import com.dev051.berlinclock.domain.usecase.GetDigitalTimeUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +21,10 @@ class BerlinClockViewModel(
 
     private var lastBerlinClockState: BerlinClockState? = null
 
+    init {
+        getBerlinClock()
+    }
+
     fun getBerlinClock(time: LocalTime = LocalTime.now()) {
         _state.value = State.Loading
         try {
@@ -27,7 +32,11 @@ class BerlinClockViewModel(
             lastBerlinClockState = state
             _state.value = State.BerlinSuccess(state)
         } catch (e: Exception) {
-            _state.value = State.Error(e.message ?: "An unexpected error occurred")
+            _state.value =
+                State.Error(
+                    message = e.message ?: "An unexpected error occurred",
+                    callback = ::getBerlinClock,
+                )
         }
     }
 
@@ -37,19 +46,34 @@ class BerlinClockViewModel(
             val berlinClockState = lastBerlinClockState
             if (berlinClockState != null) {
                 val time = getDigitalTimeUseCase(berlinClockState)
-                _state.value = State.DigitalSuccess(time)
+                _state.value = State.DigitalSuccess(
+                    DigitalTimeState(
+                        time = time,
+                        displaySemiColon = time.second % 2 == 0
+                    )
+                )
             } else {
-                _state.value = State.Error("No Berlin Clock available")
+                _state.value = State.Error(
+                    message = "No Berlin Clock available",
+                    callback = ::getDigitalClock,
+                )
             }
         } catch (e: Exception) {
-            _state.value = State.Error(e.message ?: "An unexpected error occurred")
+            _state.value =
+                State.Error(
+                    message = e.message ?: "An unexpected error occurred",
+                    callback = ::getDigitalClock,
+                )
         }
     }
 
     sealed class State {
         data object Loading : State()
         data class BerlinSuccess(val state: BerlinClockState) : State()
-        data class DigitalSuccess(val time: LocalTime) : State()
-        data class Error(val message: String) : State()
+        data class DigitalSuccess(val state: DigitalTimeState) : State()
+        data class Error(
+            val message: String,
+            val callback: () -> Unit,
+        ) : State()
     }
 }
