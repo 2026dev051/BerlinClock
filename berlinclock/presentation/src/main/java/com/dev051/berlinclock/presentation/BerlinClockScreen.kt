@@ -9,16 +9,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,30 +30,26 @@ fun BerlinClock(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.padding(8.dp).aspectRatio(1.25F),
+        modifier = modifier
+            .padding(8.dp)
+            .aspectRatio(1.25F),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        val hours = remember { derivedStateOf { state.hours } }
-        val hourBlocks = remember { derivedStateOf { state.hourBlocks } }
-        val minutes = remember { derivedStateOf { state.minutes } }
-        val minuteBlocks = remember { derivedStateOf { state.minuteBlocks } }
-        val isSecondEven = remember { derivedStateOf { state.isSecondEven } }
-
-        CircleLight(isSecondEven = isSecondEven)
-        HorizontalLights(hourBlocks, Modifier.weight(1F))
-        HorizontalLights(hours, Modifier.weight(1F))
-        HorizontalLights(minuteBlocks, Modifier.weight(1F))
-        HorizontalLights(minutes, Modifier.weight(1F))
+        CircleLight(isSecondEven = state.isSecondEven)
+        HorizontalLights(state.hourBlocks, Modifier.weight(1F))
+        HorizontalLights(state.hours, Modifier.weight(1F))
+        HorizontalLights(state.minuteBlocks, Modifier.weight(1F))
+        HorizontalLights(state.minutes, Modifier.weight(1F))
     }
 }
 
 @Composable
 private fun CircleLight(
-    isSecondEven: State<Boolean>,
+    isSecondEven: Boolean,
     modifier: Modifier = Modifier,
 ) {
-    val background = if (isSecondEven.value) Color.Yellow else Color.White
+    val background = if (isSecondEven) Color.Yellow else Color.White
     Box(
         modifier = modifier
             .size(64.dp)
@@ -70,17 +61,17 @@ private fun CircleLight(
 
 @Composable
 private fun HorizontalLights(
-    lightState: State<List<LightState>>,
+    lightState: List<LightState>,
     modifier: Modifier,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        lightState.value.forEachIndexed { index, light ->
+        lightState.forEachIndexed { index, light ->
             val shape = when (index) {
                 0 -> RoundedCornerShape(24.dp, 0.dp, 0.dp, 24.dp)
-                lightState.value.lastIndex -> RoundedCornerShape(0.dp,24.dp, 24.dp, 0.dp)
+                lightState.lastIndex -> RoundedCornerShape(0.dp, 24.dp, 24.dp, 0.dp)
                 else -> RectangleShape
             }
             Box(

@@ -59,7 +59,10 @@ class MainActivity : ComponentActivity() {
                         Box(modifier = if (isLandscape) Modifier.weight(1F) else Modifier) {
                             when (val state = uiState) {
                                 BerlinClockViewModel.State.Loading -> {
-                                    CircularProgressIndicator(color = Color.DarkGray)
+                                    CircularProgressIndicator(
+                                        color = Color.DarkGray,
+                                        modifier = if (isLandscape) Modifier.align(Alignment.Center) else Modifier,
+                                    )
                                 }
 
                                 is BerlinClockViewModel.State.BerlinSuccess -> {
