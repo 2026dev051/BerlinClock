@@ -4,5 +4,5 @@ import java.time.LocalTime
 
 data class DigitalTimeState(
     val time: LocalTime,
-    val displaySemiColon: Boolean,
+    val displayColon: Boolean,
 )

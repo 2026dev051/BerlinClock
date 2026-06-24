@@ -32,7 +32,7 @@ fun DigitalClock(
             text = " : ",
             fontSize = 40.sp,
             fontFamily = digitalClockFont,
-            color = if (state.displaySemiColon) Color.Unspecified else Color.Transparent
+            color = if (state.displayColon) Color.Unspecified else Color.Transparent
         )
         Text(
             text = "%02d".format(state.time.minute),
@@ -48,7 +48,7 @@ private fun DigitalClockPreview() {
     DigitalClock(
         state = DigitalTimeState(
             time = LocalTime.now(),
-            displaySemiColon = true,
+            displayColon = true,
         ),
     )
 }

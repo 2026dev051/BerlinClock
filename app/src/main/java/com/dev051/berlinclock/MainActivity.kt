@@ -45,7 +45,6 @@ class MainActivity : ComponentActivity() {
                     val isLandscape =
                         configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
-                    var onClick: (() -> Unit)? = null
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
@@ -66,12 +65,10 @@ class MainActivity : ComponentActivity() {
                                 }
 
                                 is BerlinClockViewModel.State.BerlinSuccess -> {
-                                    onClick = viewModel::getDigitalClock
                                     BerlinClock(state = state.state)
                                 }
 
                                 is BerlinClockViewModel.State.DigitalSuccess -> {
-                                    onClick = viewModel::getBerlinClock
                                     DigitalClock(
                                         state = state.state,
                                         modifier = if (isLandscape) Modifier.align(Alignment.Center) else Modifier,
@@ -86,12 +83,12 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         }
-                        onClick?.let { click ->
+                        (uiState as? BerlinClockViewModel.State.Success)?.let { state ->
                             Button(
                                 colors = ButtonDefaults.buttonColors().copy(
                                     containerColor = BnpGreen,
                                 ),
-                                onClick = click
+                                onClick = state.callback
                             ) {
                                 Text(
                                     text = "Switch display"

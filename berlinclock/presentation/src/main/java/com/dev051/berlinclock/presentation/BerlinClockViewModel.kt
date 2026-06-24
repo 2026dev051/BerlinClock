@@ -40,7 +40,10 @@ class BerlinClockViewModel(
             while (true) {
                 try {
                     val state = getBerlinClockUseCase(LocalTime.now())
-                    _state.value = State.BerlinSuccess(state)
+                    _state.value = State.BerlinSuccess(
+                        state = state,
+                        callback = ::getDigitalClock,
+                    )
                     accountForDrift()
                 } catch (e: CancellationException) {
                     throw e
@@ -65,12 +68,10 @@ class BerlinClockViewModel(
                 try {
                     // necessary gimmick to simulate a world where getting the time as a Berlin clock is mundane
                     val berlinClockState = getBerlinClockUseCase(LocalTime.now())
-                    val time = getDigitalTimeUseCase(berlinClockState)
+                    val state = getDigitalTimeUseCase(berlinClockState)
                     _state.value = State.DigitalSuccess(
-                        DigitalTimeState(
-                            time = time,
-                            displaySemiColon = time.second % 2 == 0
-                        )
+                        state = state,
+                        callback = ::getBerlinClock
                     )
                     accountForDrift()
 
@@ -95,8 +96,17 @@ class BerlinClockViewModel(
 
     sealed class State {
         data object Loading : State()
-        data class BerlinSuccess(val state: BerlinClockState) : State()
-        data class DigitalSuccess(val state: DigitalTimeState) : State()
+        sealed class Success(open val callback: () -> Unit) : State()
+        data class BerlinSuccess(
+            val state: BerlinClockState,
+            override val callback: () -> Unit,
+        ) : Success(callback)
+
+        data class DigitalSuccess(
+            val state: DigitalTimeState,
+            override val callback: () -> Unit,
+        ) : Success(callback)
+
         data class Error(
             val message: String,
             val callback: () -> Unit,
