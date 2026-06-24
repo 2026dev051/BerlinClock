@@ -2,8 +2,10 @@ package com.dev051.berlinclock.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dev051.berlinclock.domain.model.BerlinClockErrorState
 import com.dev051.berlinclock.domain.model.BerlinClockState
 import com.dev051.berlinclock.domain.model.DigitalTimeState
+import com.dev051.berlinclock.domain.resourceprovider.BerlinClockResourceProvider
 import com.dev051.berlinclock.domain.usecase.GetBerlinClockUseCase
 import com.dev051.berlinclock.domain.usecase.GetDigitalTimeUseCase
 import kotlinx.coroutines.CancellationException
@@ -19,6 +21,7 @@ import java.time.LocalTime
 class BerlinClockViewModel(
     private val getBerlinClockUseCase: GetBerlinClockUseCase,
     private val getDigitalTimeUseCase: GetDigitalTimeUseCase,
+    private val resourceProvider: BerlinClockResourceProvider,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<State>(State.Loading)
@@ -50,8 +53,13 @@ class BerlinClockViewModel(
                 } catch (e: Exception) {
                     _state.value =
                         State.Error(
-                            message = e.message ?: "An unexpected error occurred",
-                            callback = ::getBerlinClock,
+                            BerlinClockErrorState(
+                                message = e.message ?: resourceProvider.genericErrorMessage,
+                                action = BerlinClockErrorState.Action(
+                                    callback = ::getBerlinClock,
+                                    actionText = resourceProvider.retryLabel,
+                                )
+                            )
                         )
                 }
             }
@@ -80,8 +88,13 @@ class BerlinClockViewModel(
                 } catch (e: Exception) {
                     _state.value =
                         State.Error(
-                            message = e.message ?: "An unexpected error occurred",
-                            callback = ::getDigitalClock,
+                            BerlinClockErrorState(
+                                message = e.message ?: resourceProvider.genericErrorMessage,
+                                action = BerlinClockErrorState.Action(
+                                    callback = ::getDigitalClock,
+                                    actionText = resourceProvider.retryLabel,
+                                )
+                            )
                         )
                 }
             }
@@ -108,8 +121,7 @@ class BerlinClockViewModel(
         ) : Success(callback)
 
         data class Error(
-            val message: String,
-            val callback: () -> Unit,
+            val state: BerlinClockErrorState,
         ) : State()
     }
 }

@@ -11,13 +11,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dev051.berlinclock.domain.model.BerlinClockErrorState
 import com.dev051.core.design.BnpGreen
 
 @Composable
 fun BerlinClockError(
-    message: String,
+    state: BerlinClockErrorState,
     modifier: Modifier = Modifier,
-    callback: (() -> Unit)? = null
 ) {
     Column(
         modifier = modifier
@@ -26,16 +26,16 @@ fun BerlinClockError(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = message
+            text = state.message
         )
-        callback?.let { onClick ->
+        state.action?.let { action ->
             Button(
                 colors = ButtonDefaults.buttonColors().copy(
                     containerColor = BnpGreen
                 ),
-                onClick = onClick,
+                onClick = action.callback,
             ) {
-                Text("Retry")
+                Text(action.actionText)
             }
         }
     }
@@ -44,5 +44,12 @@ fun BerlinClockError(
 @Preview(showBackground = true)
 @Composable
 private fun BerlinClockErrorPreview() {
-    BerlinClockError("An unexpected error occurred") {}
+    BerlinClockError(
+        state = BerlinClockErrorState(
+            message = "An unexpected error occurred",
+            action = BerlinClockErrorState.Action(
+                actionText = "Retry",
+            ) {}
+        )
+    )
 }

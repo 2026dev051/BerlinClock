@@ -22,17 +22,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
+import com.dev051.berlinclock.domain.resourceprovider.BerlinClockResourceProvider
 import com.dev051.berlinclock.presentation.BerlinClock
 import com.dev051.berlinclock.presentation.BerlinClockError
 import com.dev051.berlinclock.presentation.BerlinClockViewModel
 import com.dev051.berlinclock.presentation.DigitalClock
 import com.dev051.core.design.BerlinClockTheme
 import com.dev051.core.design.BnpGreen
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
 
     private val viewModel: BerlinClockViewModel by viewModel()
+    private val resourceProvider: BerlinClockResourceProvider by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,10 +79,7 @@ class MainActivity : ComponentActivity() {
                                 }
 
                                 is BerlinClockViewModel.State.Error -> {
-                                    BerlinClockError(
-                                        message = state.message,
-                                        callback = state.callback,
-                                    )
+                                    BerlinClockError(state = state.state)
                                 }
                             }
                         }
@@ -91,7 +91,7 @@ class MainActivity : ComponentActivity() {
                                 onClick = state.callback
                             ) {
                                 Text(
-                                    text = "Switch display"
+                                    text = resourceProvider.switchDisplayLabel
                                 )
                             }
                         }
