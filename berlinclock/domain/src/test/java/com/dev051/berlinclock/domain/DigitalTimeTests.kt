@@ -1,6 +1,7 @@
 package com.dev051.berlinclock.domain
 
 import com.dev051.berlinclock.domain.model.BerlinClockState
+import com.dev051.berlinclock.domain.model.DigitalTimeState
 import com.dev051.berlinclock.domain.model.LightState
 import com.dev051.berlinclock.domain.usecase.GetDigitalTimeUseCase
 import org.junit.Test
@@ -51,7 +52,7 @@ class DigitalTimeTests {
         val digitalTime = getDigitalTime(state)
 
         assertEquals(
-            LocalTime.of(0, 0, 1),
+            DigitalTimeState(LocalTime.of(0, 0, 1), false),
             digitalTime
         )
     }
@@ -96,7 +97,7 @@ class DigitalTimeTests {
         val digitalTime = getDigitalTime(state)
 
         assertEquals(
-            LocalTime.of(1, 0, 1),
+            DigitalTimeState(LocalTime.of(1, 0, 1), false),
             digitalTime
         )
     }
@@ -141,7 +142,7 @@ class DigitalTimeTests {
         val digitalTime = getDigitalTime(state)
 
         assertEquals(
-            LocalTime.of(6, 0, 0),
+            DigitalTimeState(LocalTime.of(6, 0, 0), true),
             digitalTime
         )
     }
@@ -186,7 +187,7 @@ class DigitalTimeTests {
         val digitalTime = getDigitalTime(state)
 
         assertEquals(
-            LocalTime.of(6, 6, 1),
+            DigitalTimeState(LocalTime.of(6, 6, 1), false),
             digitalTime
         )
     }
@@ -231,7 +232,7 @@ class DigitalTimeTests {
         val digitalTime = getDigitalTime(state)
 
         assertEquals(
-            LocalTime.of(23, 59, 0),
+            DigitalTimeState(LocalTime.of(23, 59, 0), true),
             digitalTime
         )
     }
@@ -276,7 +277,7 @@ class DigitalTimeTests {
         val digitalTime = getDigitalTime(state)
 
         assertEquals(
-            LocalTime.of(11, 32, 0),
+            DigitalTimeState(LocalTime.of(11, 32, 0), true),
             digitalTime
         )
     }
