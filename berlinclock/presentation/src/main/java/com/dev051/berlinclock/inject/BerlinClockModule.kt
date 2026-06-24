@@ -1,7 +1,9 @@
 package com.dev051.berlinclock.inject
 
 import com.dev051.berlinclock.domain.resourceprovider.BerlinClockResourceProvider
+import com.dev051.berlinclock.domain.usecase.GetBerlinClockInteractor
 import com.dev051.berlinclock.domain.usecase.GetBerlinClockUseCase
+import com.dev051.berlinclock.domain.usecase.GetDigitalTimeInteractor
 import com.dev051.berlinclock.domain.usecase.GetDigitalTimeUseCase
 import com.dev051.berlinclock.presentation.BerlinClockViewModel
 import com.dev051.berlinclock.presentation.resourceprovider.AndroidBerlinClockResourceProvider
@@ -11,8 +13,8 @@ import org.koin.dsl.module
 
 val berlinClockModule = module {
 
-    factory { GetBerlinClockUseCase() }
-    factory { GetDigitalTimeUseCase() }
+    factory<GetBerlinClockUseCase> { GetBerlinClockInteractor() }
+    factory<GetDigitalTimeUseCase> { GetDigitalTimeInteractor() }
     single<BerlinClockResourceProvider> { AndroidBerlinClockResourceProvider(androidContext()) }
     viewModel { BerlinClockViewModel(get(), get(), get()) }
 }

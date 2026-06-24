@@ -3,6 +3,7 @@ package com.dev051.berlinclock.domain
 import com.dev051.berlinclock.domain.model.BerlinClockState
 import com.dev051.berlinclock.domain.model.DigitalTimeState
 import com.dev051.berlinclock.domain.model.LightState
+import com.dev051.berlinclock.domain.usecase.GetDigitalTimeInteractor
 import com.dev051.berlinclock.domain.usecase.GetDigitalTimeUseCase
 import org.junit.Test
 import org.junit.Assert.assertEquals
@@ -10,7 +11,7 @@ import java.time.LocalTime
 
 class DigitalTimeTests {
 
-    private val getDigitalTime = GetDigitalTimeUseCase()
+    private val getDigitalTime = GetDigitalTimeInteractor()
 
     @Test
     fun `when receiving OOOO OOOO OOOOOOOOOOO OOOO F(alse), the digital time is 00_00 with the colon hidden`() {
