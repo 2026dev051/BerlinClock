@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="berlinclock_genericError_message">An unexpected error occurred</string>
+    <string name="berlinclock_retry_label">Retry</string>
+    <string name="berlinclock_switchDisplay_label">Switch display</string>
+</resources>
