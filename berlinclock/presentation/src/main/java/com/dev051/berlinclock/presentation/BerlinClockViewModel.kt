@@ -1,5 +1,6 @@
 package com.dev051.berlinclock.presentation
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dev051.berlinclock.domain.model.BerlinClockErrorState
@@ -123,5 +124,17 @@ class BerlinClockViewModel(
         data class Error(
             val state: BerlinClockErrorState,
         ) : State()
+    }
+
+    // Quirk to be able to test the viewModel in a timely manner
+    @VisibleForTesting
+    fun clear() {
+        berlinClockJob?.cancel()
+        digitalClockJob?.cancel()
+    }
+
+    override fun onCleared() {
+        clear()
+        super.onCleared()
     }
 }
