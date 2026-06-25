@@ -23,6 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dev051.berlinclock.domain.model.BerlinClockState
 import com.dev051.berlinclock.domain.model.LightState
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun BerlinClock(
@@ -61,7 +63,7 @@ private fun CircleLight(
 
 @Composable
 private fun HorizontalLights(
-    lightState: List<LightState>,
+    lightState: ImmutableList<LightState>,
     modifier: Modifier,
 ) {
     Row(
@@ -99,9 +101,19 @@ private fun LightState.toColor(): Color {
 private fun BerlinClockPreview() {
     BerlinClock(
         state = BerlinClockState(
-            hourBlocks = listOf(LightState.RED, LightState.OFF, LightState.OFF, LightState.OFF),
-            hours = listOf(LightState.RED, LightState.OFF, LightState.OFF, LightState.OFF),
-            minuteBlocks = listOf(
+            hourBlocks = persistentListOf(
+                LightState.RED,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF
+            ),
+            hours = persistentListOf(
+                LightState.RED,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF
+            ),
+            minuteBlocks = persistentListOf(
                 LightState.YELLOW,
                 LightState.YELLOW,
                 LightState.RED,
@@ -114,7 +126,12 @@ private fun BerlinClockPreview() {
                 LightState.OFF,
                 LightState.OFF
             ),
-            minutes = listOf(LightState.RED, LightState.OFF, LightState.OFF, LightState.OFF),
+            minutes = persistentListOf(
+                LightState.YELLOW,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF
+            ),
             isSecondEven = true,
         )
     )

@@ -1,9 +1,11 @@
 package com.dev051.berlinclock.domain.model
 
+import kotlinx.collections.immutable.ImmutableList
+
 data class BerlinClockState(
-    val hourBlocks: List<LightState>,
-    val hours: List<LightState>,
-    val minuteBlocks: List<LightState>,
-    val minutes: List<LightState>,
+    val hourBlocks: ImmutableList<LightState>,
+    val hours: ImmutableList<LightState>,
+    val minuteBlocks: ImmutableList<LightState>,
+    val minutes: ImmutableList<LightState>,
     val isSecondEven: Boolean = false,
 )

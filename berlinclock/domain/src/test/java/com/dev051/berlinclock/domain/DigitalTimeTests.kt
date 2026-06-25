@@ -4,7 +4,7 @@ import com.dev051.berlinclock.domain.model.BerlinClockState
 import com.dev051.berlinclock.domain.model.DigitalTimeState
 import com.dev051.berlinclock.domain.model.LightState
 import com.dev051.berlinclock.domain.usecase.GetDigitalTimeInteractor
-import com.dev051.berlinclock.domain.usecase.GetDigitalTimeUseCase
+import kotlinx.collections.immutable.persistentListOf
 import org.junit.Test
 import org.junit.Assert.assertEquals
 import java.time.LocalTime
@@ -16,19 +16,19 @@ class DigitalTimeTests {
     @Test
     fun `when receiving OOOO OOOO OOOOOOOOOOO OOOO F(alse), the digital time is 00_00 with the colon hidden`() {
         val state = BerlinClockState(
-            hourBlocks = listOf(
+            hourBlocks = persistentListOf(
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
             ),
-            hours = listOf(
+            hours = persistentListOf(
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
             ),
-            minuteBlocks = listOf(
+            minuteBlocks = persistentListOf(
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
@@ -41,7 +41,7 @@ class DigitalTimeTests {
                 LightState.OFF,
                 LightState.OFF,
             ),
-            minutes = listOf(
+            minutes = persistentListOf(
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
@@ -61,19 +61,19 @@ class DigitalTimeTests {
     @Test
     fun `when receiving OOOO ROOO OOOOOOOOOOO OOOO T(rue), the digital time is 01_00 with the colon visible`() {
         val state = BerlinClockState(
-            hourBlocks = listOf(
+            hourBlocks = persistentListOf(
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
             ),
-            hours = listOf(
+            hours = persistentListOf(
                 LightState.RED,
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
             ),
-            minuteBlocks = listOf(
+            minuteBlocks = persistentListOf(
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
@@ -86,7 +86,7 @@ class DigitalTimeTests {
                 LightState.OFF,
                 LightState.OFF,
             ),
-            minutes = listOf(
+            minutes = persistentListOf(
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
@@ -106,19 +106,19 @@ class DigitalTimeTests {
     @Test
     fun `when receiving ROOO ROOO OOOOOOOOOOO OOOO T, the digital time is 06_00 with the colon visible`() {
         val state = BerlinClockState(
-            hourBlocks = listOf(
+            hourBlocks = persistentListOf(
                 LightState.RED,
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
             ),
-            hours = listOf(
+            hours = persistentListOf(
                 LightState.RED,
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
             ),
-            minuteBlocks = listOf(
+            minuteBlocks = persistentListOf(
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
@@ -131,7 +131,7 @@ class DigitalTimeTests {
                 LightState.OFF,
                 LightState.OFF,
             ),
-            minutes = listOf(
+            minutes = persistentListOf(
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
@@ -151,19 +151,19 @@ class DigitalTimeTests {
     @Test
     fun `when receiving ROOO ROOO ROOOOOOOOOO ROOO F, the digital time is 06_06 with the colon hidden`() {
         val state = BerlinClockState(
-            hourBlocks = listOf(
+            hourBlocks = persistentListOf(
                 LightState.RED,
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
             ),
-            hours = listOf(
+            hours = persistentListOf(
                 LightState.RED,
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
             ),
-            minuteBlocks = listOf(
+            minuteBlocks = persistentListOf(
                 LightState.YELLOW,
                 LightState.OFF,
                 LightState.OFF,
@@ -176,8 +176,8 @@ class DigitalTimeTests {
                 LightState.OFF,
                 LightState.OFF,
             ),
-            minutes = listOf(
-                LightState.RED,
+            minutes = persistentListOf(
+                LightState.YELLOW,
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
@@ -196,19 +196,19 @@ class DigitalTimeTests {
     @Test
     fun `when receiving RRRR RRRO YYRYYRYYRYY RRRR T, the digital time is 23_59 with the colon visible`() {
         val state = BerlinClockState(
-            hourBlocks = listOf(
+            hourBlocks = persistentListOf(
                 LightState.RED,
                 LightState.RED,
                 LightState.RED,
                 LightState.RED,
             ),
-            hours = listOf(
+            hours = persistentListOf(
                 LightState.RED,
                 LightState.RED,
                 LightState.RED,
                 LightState.OFF,
             ),
-            minuteBlocks = listOf(
+            minuteBlocks = persistentListOf(
                 LightState.YELLOW,
                 LightState.YELLOW,
                 LightState.RED,
@@ -221,11 +221,11 @@ class DigitalTimeTests {
                 LightState.YELLOW,
                 LightState.YELLOW,
             ),
-            minutes = listOf(
-                LightState.RED,
-                LightState.RED,
-                LightState.RED,
-                LightState.RED,
+            minutes = persistentListOf(
+                LightState.YELLOW,
+                LightState.YELLOW,
+                LightState.YELLOW,
+                LightState.YELLOW,
             ),
             isSecondEven = true
         )
@@ -241,19 +241,19 @@ class DigitalTimeTests {
     @Test
     fun `when receiving RROO ROOO YYRYYROOOOO RROO T, the digital time is 11_32 with the colon visible`() {
         val state = BerlinClockState(
-            hourBlocks = listOf(
+            hourBlocks = persistentListOf(
                 LightState.RED,
                 LightState.RED,
                 LightState.OFF,
                 LightState.OFF,
             ),
-            hours = listOf(
+            hours = persistentListOf(
                 LightState.RED,
                 LightState.OFF,
                 LightState.OFF,
                 LightState.OFF,
             ),
-            minuteBlocks = listOf(
+            minuteBlocks = persistentListOf(
                 LightState.YELLOW,
                 LightState.YELLOW,
                 LightState.RED,
@@ -266,9 +266,9 @@ class DigitalTimeTests {
                 LightState.OFF,
                 LightState.OFF,
             ),
-            minutes = listOf(
-                LightState.RED,
-                LightState.RED,
+            minutes = persistentListOf(
+                LightState.YELLOW,
+                LightState.YELLOW,
                 LightState.OFF,
                 LightState.OFF,
             ),

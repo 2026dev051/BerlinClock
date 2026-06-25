@@ -2,6 +2,8 @@ package com.dev051.berlinclock.domain.usecase
 
 import com.dev051.berlinclock.domain.model.BerlinClockState
 import com.dev051.berlinclock.domain.model.LightState
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import java.time.LocalTime
 
 class GetBerlinClockInteractor : GetBerlinClockUseCase {
@@ -35,7 +37,7 @@ class GetBerlinClockInteractor : GetBerlinClockUseCase {
     private fun formatBlockOfFour(
         litAmount: Int,
         lightState: LightState = LightState.RED,
-    ): List<LightState> {
+    ): ImmutableList<LightState> {
         val blockOfFourLightState = mutableListOf<LightState>()
         for (index in 1..4) {
             if (index <= litAmount) {
@@ -44,10 +46,10 @@ class GetBerlinClockInteractor : GetBerlinClockUseCase {
                 blockOfFourLightState.add(LightState.OFF)
             }
         }
-        return blockOfFourLightState
+        return blockOfFourLightState.toImmutableList()
     }
 
-    private fun formatBlockOfEleven(litAmount: Int): List<LightState> {
+    private fun formatBlockOfEleven(litAmount: Int): ImmutableList<LightState> {
         val blockOfElevenLightState = mutableListOf<LightState>()
         for (index in 1..11) {
             when {
@@ -56,6 +58,6 @@ class GetBerlinClockInteractor : GetBerlinClockUseCase {
                 else -> blockOfElevenLightState.add(LightState.OFF)
             }
         }
-        return blockOfElevenLightState
+        return blockOfElevenLightState.toImmutableList()
     }
 }

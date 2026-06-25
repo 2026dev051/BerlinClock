@@ -7,6 +7,7 @@ import com.dev051.berlinclock.domain.resourceprovider.BerlinClockResourceProvide
 import com.dev051.berlinclock.domain.usecase.GetBerlinClockUseCase
 import com.dev051.berlinclock.domain.usecase.GetDigitalTimeUseCase
 import com.dev051.berlinclock.presentation.BerlinClockViewModel
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -26,9 +27,19 @@ class BerlinClockViewModelTests {
     class FakeGetBerlinClockUseCase : GetBerlinClockUseCase {
 
         var result = BerlinClockState(
-            hourBlocks = listOf(LightState.RED, LightState.OFF, LightState.OFF, LightState.OFF),
-            hours = listOf(LightState.RED, LightState.OFF, LightState.OFF, LightState.OFF),
-            minuteBlocks = listOf(
+            hourBlocks = persistentListOf(
+                LightState.RED,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF
+            ),
+            hours = persistentListOf(
+                LightState.RED,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF
+            ),
+            minuteBlocks = persistentListOf(
                 LightState.YELLOW,
                 LightState.YELLOW,
                 LightState.RED,
@@ -41,7 +52,12 @@ class BerlinClockViewModelTests {
                 LightState.OFF,
                 LightState.OFF
             ),
-            minutes = listOf(LightState.RED, LightState.OFF, LightState.OFF, LightState.OFF),
+            minutes = persistentListOf(
+                LightState.YELLOW,
+                LightState.OFF,
+                LightState.OFF,
+                LightState.OFF
+            ),
             isSecondEven = true,
         )
 
@@ -86,7 +102,8 @@ class BerlinClockViewModelTests {
     }
 
     @Test
-    fun `when ViewModel is created, after 1 second to account for drift, the state is BerlinSuccess`() = runTest {
+    fun `when ViewModel is created, after 1 second to account for drift, the state is BerlinSuccess`() =
+        runTest {
             val viewModel = BerlinClockViewModel(
                 getBerlinClockUseCase = FakeGetBerlinClockUseCase(),
                 getDigitalTimeUseCase = FakeGetDigitalTimeUseCase(),
@@ -99,18 +116,19 @@ class BerlinClockViewModelTests {
 
     @Test
     fun `when digital time is requested, the initial state is Loading`() = runTest {
-            val viewModel = BerlinClockViewModel(
-                getBerlinClockUseCase = FakeGetBerlinClockUseCase(),
-                getDigitalTimeUseCase = FakeGetDigitalTimeUseCase(),
-                resourceProvider = FakeBerlinClockResourceProvider(),
-            )
-            viewModel.getDigitalClock()
-            assert(viewModel.state.value is BerlinClockViewModel.State.Loading)
-            viewModel.clear()
-        }
+        val viewModel = BerlinClockViewModel(
+            getBerlinClockUseCase = FakeGetBerlinClockUseCase(),
+            getDigitalTimeUseCase = FakeGetDigitalTimeUseCase(),
+            resourceProvider = FakeBerlinClockResourceProvider(),
+        )
+        viewModel.getDigitalClock()
+        assert(viewModel.state.value is BerlinClockViewModel.State.Loading)
+        viewModel.clear()
+    }
 
     @Test
-    fun `when digital time is requested, after 1 second to account for drift, the state is DigitalSuccess`() = runTest {
+    fun `when digital time is requested, after 1 second to account for drift, the state is DigitalSuccess`() =
+        runTest {
             val viewModel = BerlinClockViewModel(
                 getBerlinClockUseCase = FakeGetBerlinClockUseCase(),
                 getDigitalTimeUseCase = FakeGetDigitalTimeUseCase(),

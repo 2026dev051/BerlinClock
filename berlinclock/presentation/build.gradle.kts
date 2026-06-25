@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.koin.android)
     implementation(libs.koin.core)
+    implementation(libs.kotlinx.collections.immutable)
     implementation(libs.material)
     debugImplementation(libs.androidx.compose.ui.tooling)
 

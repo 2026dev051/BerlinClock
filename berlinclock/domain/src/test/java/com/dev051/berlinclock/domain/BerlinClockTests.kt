@@ -3,7 +3,7 @@ package com.dev051.berlinclock.domain
 import com.dev051.berlinclock.domain.model.BerlinClockState
 import com.dev051.berlinclock.domain.model.LightState
 import com.dev051.berlinclock.domain.usecase.GetBerlinClockInteractor
-import com.dev051.berlinclock.domain.usecase.GetBerlinClockUseCase
+import kotlinx.collections.immutable.persistentListOf
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalTime
@@ -20,19 +20,19 @@ class BerlinClockTests {
 
         assertEquals(
             BerlinClockState(
-                hourBlocks = listOf(
+                hourBlocks = persistentListOf(
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                hours = listOf(
+                hours = persistentListOf(
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                minuteBlocks = listOf(
+                minuteBlocks = persistentListOf(
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
@@ -45,7 +45,7 @@ class BerlinClockTests {
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                minutes = listOf(
+                minutes = persistentListOf(
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
@@ -64,19 +64,19 @@ class BerlinClockTests {
 
         assertEquals(
             BerlinClockState(
-                hourBlocks = listOf(
+                hourBlocks = persistentListOf(
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                hours = listOf(
+                hours = persistentListOf(
                     LightState.RED,
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                minuteBlocks = listOf(
+                minuteBlocks = persistentListOf(
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
@@ -89,7 +89,7 @@ class BerlinClockTests {
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                minutes = listOf(
+                minutes = persistentListOf(
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
@@ -108,19 +108,19 @@ class BerlinClockTests {
 
         assertEquals(
             BerlinClockState(
-                hourBlocks = listOf(
+                hourBlocks = persistentListOf(
                     LightState.RED,
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                hours = listOf(
+                hours = persistentListOf(
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                minuteBlocks = listOf(
+                minuteBlocks = persistentListOf(
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
@@ -133,7 +133,7 @@ class BerlinClockTests {
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                minutes = listOf(
+                minutes = persistentListOf(
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
@@ -152,19 +152,19 @@ class BerlinClockTests {
 
         assertEquals(
             BerlinClockState(
-                hourBlocks = listOf(
+                hourBlocks = persistentListOf(
                     LightState.RED,
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                hours = listOf(
+                hours = persistentListOf(
                     LightState.RED,
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                minuteBlocks = listOf(
+                minuteBlocks = persistentListOf(
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
@@ -177,7 +177,7 @@ class BerlinClockTests {
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                minutes = listOf(
+                minutes = persistentListOf(
                     LightState.YELLOW,
                     LightState.OFF,
                     LightState.OFF,
@@ -196,19 +196,19 @@ class BerlinClockTests {
 
         assertEquals(
             BerlinClockState(
-                hourBlocks = listOf(
+                hourBlocks = persistentListOf(
                     LightState.RED,
                     LightState.RED,
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                hours = listOf(
+                hours = persistentListOf(
                     LightState.RED,
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                minuteBlocks = listOf(
+                minuteBlocks = persistentListOf(
                     LightState.YELLOW,
                     LightState.YELLOW,
                     LightState.RED,
@@ -221,7 +221,7 @@ class BerlinClockTests {
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                minutes = listOf(
+                minutes = persistentListOf(
                     LightState.YELLOW,
                     LightState.YELLOW,
                     LightState.YELLOW,
@@ -240,19 +240,19 @@ class BerlinClockTests {
 
         assertEquals(
             BerlinClockState(
-                hourBlocks = listOf(
+                hourBlocks = persistentListOf(
                     LightState.RED,
                     LightState.RED,
                     LightState.RED,
                     LightState.OFF,
                 ),
-                hours = listOf(
+                hours = persistentListOf(
                     LightState.RED,
                     LightState.RED,
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                minuteBlocks = listOf(
+                minuteBlocks = persistentListOf(
                     LightState.YELLOW,
                     LightState.YELLOW,
                     LightState.RED,
@@ -265,7 +265,7 @@ class BerlinClockTests {
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                minutes = listOf(
+                minutes = persistentListOf(
                     LightState.YELLOW,
                     LightState.YELLOW,
                     LightState.OFF,
@@ -284,19 +284,19 @@ class BerlinClockTests {
 
         assertEquals(
             BerlinClockState(
-                hourBlocks = listOf(
+                hourBlocks = persistentListOf(
                     LightState.RED,
                     LightState.RED,
                     LightState.RED,
                     LightState.RED,
                 ),
-                hours = listOf(
+                hours = persistentListOf(
                     LightState.RED,
                     LightState.RED,
                     LightState.RED,
                     LightState.OFF,
                 ),
-                minuteBlocks = listOf(
+                minuteBlocks = persistentListOf(
                     LightState.YELLOW,
                     LightState.YELLOW,
                     LightState.RED,
@@ -309,7 +309,7 @@ class BerlinClockTests {
                     LightState.YELLOW,
                     LightState.YELLOW,
                 ),
-                minutes = listOf(
+                minutes = persistentListOf(
                     LightState.YELLOW,
                     LightState.YELLOW,
                     LightState.YELLOW,
@@ -320,6 +320,7 @@ class BerlinClockTests {
             state,
         )
     }
+
     @Test
     fun `at 00h00 01s, everything is off`() {
         val time = LocalTime.of(0, 0, 1)
@@ -327,19 +328,19 @@ class BerlinClockTests {
 
         assertEquals(
             BerlinClockState(
-                hourBlocks = listOf(
+                hourBlocks = persistentListOf(
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                hours = listOf(
+                hours = persistentListOf(
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                minuteBlocks = listOf(
+                minuteBlocks = persistentListOf(
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,
@@ -352,7 +353,7 @@ class BerlinClockTests {
                     LightState.OFF,
                     LightState.OFF,
                 ),
-                minutes = listOf(
+                minutes = persistentListOf(
                     LightState.OFF,
                     LightState.OFF,
                     LightState.OFF,

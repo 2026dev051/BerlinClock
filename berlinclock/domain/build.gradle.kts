@@ -13,5 +13,6 @@ kotlin {
 }
 
 dependencies {
+    implementation(libs.kotlinx.collections.immutable)
     testImplementation(libs.junit)
 }
