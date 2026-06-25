@@ -18,9 +18,9 @@ on an emulator or a physical device.
 
 To run the tests from the command line:
 
-\`\`\`bash
+```bash
 ./gradlew test
-\`\`\`
+```
 
 ## TDD approach
 
