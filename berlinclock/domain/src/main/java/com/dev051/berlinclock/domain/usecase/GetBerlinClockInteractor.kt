@@ -21,7 +21,7 @@ class GetBerlinClockInteractor : GetBerlinClockUseCase {
         val stringMinuteBlocksState = formatBlockOfEleven(minuteBlocksLit)
 
         val minutesLit = minutes % 5
-        val stringMinutesState = formatBlockOfFour(minutesLit)
+        val stringMinutesState = formatBlockOfFour(minutesLit, LightState.YELLOW)
 
         return BerlinClockState(
             hourBlocks = stringHourBlocksState,
@@ -32,11 +32,14 @@ class GetBerlinClockInteractor : GetBerlinClockUseCase {
         )
     }
 
-    private fun formatBlockOfFour(litAmount: Int): List<LightState> {
+    private fun formatBlockOfFour(
+        litAmount: Int,
+        lightState: LightState = LightState.RED,
+    ): List<LightState> {
         val blockOfFourLightState = mutableListOf<LightState>()
         for (index in 1..4) {
             if (index <= litAmount) {
-                blockOfFourLightState.add(LightState.RED)
+                blockOfFourLightState.add(lightState)
             } else {
                 blockOfFourLightState.add(LightState.OFF)
             }
