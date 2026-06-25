@@ -11,3 +11,7 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val BnpGreen = Color(0xFF009464)
+
+val BerlinClockRed = Color(0xFFD32F2F)
+
+val BerlinClockYellow = Color(0xFFFFC107)

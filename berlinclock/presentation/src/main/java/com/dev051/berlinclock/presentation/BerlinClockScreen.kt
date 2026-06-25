@@ -23,6 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dev051.berlinclock.domain.model.BerlinClockState
 import com.dev051.berlinclock.domain.model.LightState
+import com.dev051.core.design.BerlinClockRed
+import com.dev051.core.design.BerlinClockYellow
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -51,7 +53,7 @@ private fun CircleLight(
     isSecondEven: Boolean,
     modifier: Modifier = Modifier,
 ) {
-    val background = if (isSecondEven) Color.Yellow else Color.White
+    val background = if (isSecondEven) BerlinClockYellow else Color.White
     Box(
         modifier = modifier
             .size(64.dp)
@@ -90,8 +92,8 @@ private fun HorizontalLights(
 
 private fun LightState.toColor(): Color {
     return when (this) {
-        LightState.RED -> Color.Red
-        LightState.YELLOW -> Color.Yellow
+        LightState.RED -> BerlinClockRed
+        LightState.YELLOW -> BerlinClockYellow
         LightState.OFF -> Color.LightGray
     }
 }
